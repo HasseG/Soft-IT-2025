@@ -36,7 +36,7 @@ namespace WebGoatCore.Controllers
             var response = new BlogResponse()
             {
                 Author = userName,
-                Contents = contents,
+                BlogResponseContent = new BlogResponseContent(contents),
                 BlogEntryId = entryId,
                 ResponseDate = DateTime.Now
             };
