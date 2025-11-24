@@ -105,7 +105,7 @@ namespace WebGoatCore
 
             services.AddSession(options =>
             {
-                options.Cookie.HttpOnly = false;
+                options.Cookie.HttpOnly = true;
                 options.IdleTimeout = TimeSpan.FromHours(1);
             });
 
