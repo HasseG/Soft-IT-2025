@@ -9,6 +9,7 @@ namespace WebGoatCore.Models
         public int Id { get; set; }
         private const string _regexPattern = @"[<>]";
         private string content;
+        
         virtual public string Content
         {
             get => content;
