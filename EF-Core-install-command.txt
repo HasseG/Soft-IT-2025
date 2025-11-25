@@ -1,0 +1,8 @@
+Eksekver denne kommando i /WebGoat.Net
+    dotnet tool install --global dotnet-ef --version 8
+
+Tjek derfter om EF Core er installeret korrekt med denne kommando:
+    dotnet ef
+
+For at opdatere databasen udfør:
+    dotnet ef database update
