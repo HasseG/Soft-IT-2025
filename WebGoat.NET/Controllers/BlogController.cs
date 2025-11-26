@@ -3,6 +3,7 @@ using WebGoatCore.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using Microsoft.EntityFrameworkCore.Migrations.Operations;
 
 namespace WebGoatCore.Controllers
 {
@@ -33,16 +34,20 @@ namespace WebGoatCore.Controllers
         public IActionResult Reply(int entryId, string contents)
         {
             var userName = User?.Identity?.Name ?? "Anonymous";
-            var response = new BlogResponse()
+            try
+            {   
+                // Convert DTO to domainprimtive
+                var response = new BlogResponsePrimitive(entryId, DateTime.Now, userName, new BlogResponseContent(contents));
+
+
+                BlogResponse blogResponse = new BlogResponse(response);
+                _blogResponseRepository.CreateBlogResponse(blogResponse);
+            }
+            catch (ArgumentException ex)
             {
-                Author = userName,
-                Contents = contents,
-                BlogEntryId = entryId,
-                ResponseDate = DateTime.Now
-            };
-
-            _blogResponseRepository.CreateBlogResponse(response);
-
+               ModelState.AddModelError(string.Empty, ex.Message);
+               return View(_blogEntryRepository.GetBlogEntry(entryId));
+            }
             return RedirectToAction("Index");
         }
 

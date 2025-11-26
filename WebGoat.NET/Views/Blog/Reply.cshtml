@@ -6,6 +6,7 @@
 
 <partial name="_BlogEntryPartial" model=@Model/>
 <h1>Your response</h1>
+<div asp-validation-summary="All" class="text-danger"></div>
 <form method="post">
     <textarea name="contents" rows="2" cols="20" class="BlogEntryReplyText"></textarea>
     <br>
