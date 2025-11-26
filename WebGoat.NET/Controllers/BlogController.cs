@@ -1,4 +1,5 @@
 ﻿using WebGoatCore.Models;
+using WebGoatCore.DomainPrimitives;
 using WebGoatCore.Data;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -36,11 +37,15 @@ namespace WebGoatCore.Controllers
             var userName = User?.Identity?.Name ?? "Anonymous";
             try
             {   
-                // Convert DTO to domainprimtive
-                var response = new BlogResponsePrimitive(entryId, DateTime.Now, userName, new BlogResponseContent(contents));
+                Content content = new Content(contents);
 
-
-                BlogResponse blogResponse = new BlogResponse(response);
+                BlogResponse blogResponse = new BlogResponse()
+                {
+                    BlogEntryId = entryId,
+                    ResponseDate = DateTime.Now,
+                    Author = userName,
+                    Contents = content.value
+                };
                 _blogResponseRepository.CreateBlogResponse(blogResponse);
             }
             catch (ArgumentException ex)
