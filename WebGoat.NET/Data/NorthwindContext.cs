@@ -40,7 +40,6 @@ namespace WebGoatCore.Data
 
         public DbSet<BlogEntry> BlogEntries { get; set; }
         public DbSet<BlogResponse> BlogResponses { get; set; }
-        public DbSet<BlogResponseContent> BlogResponseContents { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Customer> Customers { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -55,11 +54,6 @@ namespace WebGoatCore.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<OrderDetail>().HasKey(a => new { a.ProductId, a.OrderId });
-
-            modelBuilder.Entity<BlogResponse>()
-                .HasOne(b => b.BlogResponseContent)      // Contents har én BlogResponse
-                .WithOne(brc => brc.BlogResponse)       // BlogResponse har én Contents
-                .HasForeignKey<BlogResponseContent>(c => c.BlogResponseId); // FK på Contents
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

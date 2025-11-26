@@ -16,8 +16,6 @@ namespace WebGoatCore.Models
             private set => content = value;
         }
 
-        protected BlogResponseContent() { }
-
         public BlogResponseContent(string content)
         {
             IsContentValid(content);
@@ -31,9 +29,5 @@ namespace WebGoatCore.Models
                 throw new ArgumentException("You cannot use krokodillenæb");
             }
         }
-
-        public int BlogResponseId { get; set; }
-        public virtual BlogResponse BlogResponse { get; set; }
-
     }
 }

@@ -19,20 +19,10 @@
             }
             @foreach (var response in blogEntry.Responses)
             {
-                @if(response.Contents == null && response.BlogResponseContent != null)
-                {
-                    <div class="blogResponse">
-                            <div class="blogResponseContents">@Html.Raw(response.BlogResponseContent.Content)</div>
-                        <div class="blogResponseSignature">@response.Author - @response.ResponseDate</div>
-                    </div>
-                }
-                else
-                {
-                     <div class="blogResponse">
-                            <div class="blogResponseContents">@Html.Raw(response.Contents)</div>
-                        <div class="blogResponseSignature">@response.Author - @response.ResponseDate</div>
-                    </div>                   
-                }
+                <div class="blogResponse">
+                    <div class="blogResponseContents">@Html.Raw(response.Contents)</div>
+                    <div class="blogResponseSignature">@response.Author - @response.ResponseDate</div>
+                </div>
             }
             <a class="button blogRespondButton" asp-action="Reply" asp-route-entryId=@blogEntry.Id>Respond</a>
         </div>
