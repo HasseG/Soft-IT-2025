@@ -4,13 +4,15 @@ using System.Text.RegularExpressions;
 
 namespace WebGoatCore.Models
 {
-    public class BlogResponseContent
+    public class ContentDomainPrimitive
     {
         private const string _regexPattern = @"[<>]";
+        private const int _maxContentLength = 500;
         private string value;
 
-        public BlogResponseContent(string value)
+        public ContentDomainPrimitive(string value)
         {
+            IsContentLengthValid(value);
             IsContentValid(value);
             this.value = value;
         }
@@ -25,6 +27,14 @@ namespace WebGoatCore.Models
             if (Regex.IsMatch(value, _regexPattern))
             {
                 throw new ArgumentException("Content contains invalid characters.");
+            }
+        }
+
+        private void IsContentLengthValid(string value)
+        {
+            if (value.Length > _maxContentLength)
+            {
+                throw new ArgumentException("Content length exceeds the maximum allowed limit of 500 characters.");
             }
         }
     }

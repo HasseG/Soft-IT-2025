@@ -2,27 +2,27 @@ using System;
 
 namespace WebGoatCore.Models
 {
-    public class BlogResponsePrimitive
+    public class BlogResponseModel
     {
         public int Id { get; set; }
         public int BlogEntryId { get; set; }
         public DateTime ResponseDate { get; set; }
         public string Author { get; set; }
-        private BlogResponseContent _blogResponseContent;
+        private ContentDomainPrimitive contentDomainPrimitive;
 
         public virtual BlogEntry BlogEntry { get; set; }
 
-        public BlogResponsePrimitive(int blogEntryId, DateTime responseDate, string author, BlogResponseContent blogResponseContent)
+        public BlogResponseModel(int blogEntryId, DateTime responseDate, string author, ContentDomainPrimitive contentDomainPrimitive)
         {
             BlogEntryId = blogEntryId;
             ResponseDate = responseDate;
             Author = author;
-            _blogResponseContent = blogResponseContent;
+            this.contentDomainPrimitive = contentDomainPrimitive;
         }
 
         public string GetBlogResponseContent()
         {
-            return _blogResponseContent.GetValue();
+            return contentDomainPrimitive.GetValue();
         }
     }
 }

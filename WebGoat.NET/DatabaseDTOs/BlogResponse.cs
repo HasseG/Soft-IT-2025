@@ -15,14 +15,14 @@ namespace WebGoatCore.Models
         // Empty constructor for EF
         public BlogResponse() {}
 
-        // Constructor to create BlogResponse (DTO) from BlogResponsePrimitive
-        public BlogResponse(BlogResponsePrimitive primitive)
+        // Constructor to create BlogResponse (DTO) from BlogResponseModel
+        public BlogResponse(BlogResponseModel blogResponseModel)
         {
-            Id = primitive.Id;
-            BlogEntryId = primitive.BlogEntryId;
-            ResponseDate = primitive.ResponseDate;
-            Author = primitive.Author;
-            Contents = primitive.GetBlogResponseContent();
+            Id = blogResponseModel.Id;
+            BlogEntryId = blogResponseModel.BlogEntryId;
+            ResponseDate = blogResponseModel.ResponseDate;
+            Author = blogResponseModel.Author;
+            Contents = blogResponseModel.GetBlogResponseContent();
         }
     }
 }

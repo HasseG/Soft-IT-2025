@@ -35,18 +35,27 @@ namespace WebGoatCore.Controllers
         {
             var userName = User?.Identity?.Name ?? "Anonymous";
             try
-            {   
+            {
                 // Convert DTO to domainprimtive
-                var response = new BlogResponsePrimitive(entryId, DateTime.Now, userName, new BlogResponseContent(contents));
+                var response = new BlogResponseModel(entryId, DateTime.Now, userName, new ContentDomainPrimitive(contents));
 
 
                 BlogResponse blogResponse = new BlogResponse(response);
                 _blogResponseRepository.CreateBlogResponse(blogResponse);
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
-               ModelState.AddModelError(string.Empty, ex.Message);
-               return View(_blogEntryRepository.GetBlogEntry(entryId));
+                if (ex is ArgumentException)
+                {
+                    Response.StatusCode = 422;
+
+                    ModelState.AddModelError("Contents", ex.Message);
+                    return View(_blogEntryRepository.GetBlogEntry(entryId));
+                }
+                else
+                {
+                    return StatusCode(500, "An unexpected error occurred.");
+                }
             }
             return RedirectToAction("Index");
         }
