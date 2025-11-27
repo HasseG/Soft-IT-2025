@@ -12,6 +12,7 @@ namespace WebGoatCore.Models
 
         public ContentDomainPrimitive(string value)
         {
+            IsContentNull(value);
             IsContentLengthValid(value);
             IsContentValid(value);
             this.value = value;
@@ -20,6 +21,14 @@ namespace WebGoatCore.Models
         public string GetValue()
         {
             return value;
+        }
+
+        private void IsContentNull(string value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentException("Content cannot be empty.");
+            }
         }
 
         private void IsContentValid(string value)
